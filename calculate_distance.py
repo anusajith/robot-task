@@ -1,3 +1,6 @@
+import re
+
+
 class Robot:
     """
     This is the class which has all the characteristics defined for the Robot.
@@ -61,19 +64,18 @@ class Robot:
         total_units = abs(self.start_x - self.new_x) + abs(self.start_y - self.new_y)
         return total_units
 
-    def validate_commands(self, command_list):
+    def validate_commands(self, command):
         """
         Function to validate the commands given to robot.
-        Param : command_list   eg: ['F1','R1','B2','L1','B3']
-        Returns True for valid inputs else False.
+        Param : command   eg: 'F1,R1,B2,L1,B3'
+        Returns 'Y' for valid inputs else 'N'.
         """
-        for item in command_list:
-            if item[0] in ("F", "B", "L", "R"):
-                print("Validated commands successfully")
-                return True
-            else:
-                print("Invalid Input Commands")
-                return False
+        if re.match("^([F|B|L|R][1-9])(,[F|B|L|R][1-9])*$", string=command):
+            success = "Y"
+        else:
+            print("Invalid Input Commands: {}".format(command))
+            success = "N"
+        return success
 
     def main(self, command):
         """
@@ -81,9 +83,10 @@ class Robot:
         Param : command eg:'F1,R1,B2,L1,B3'
         Returns the units robot has to take to reach back home!
         """
+        success = self.validate_commands(command)
         command_list = command.split(",")
-        success = self.validate_commands(command_list)
-        if success:
+
+        if success == "Y":
             for item in command_list:
                 if item[0] in ("F", "B"):
                     self.move(item)

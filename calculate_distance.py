@@ -40,7 +40,7 @@ class Robot:
         total_units = abs(self.start_x - self.new_x) + abs(self.start_y - self.new_y)
         return total_units
 
-    def validate_commands(self,command_list):
+    def validate_commands(self, command_list):
         for item in command_list:
             if item[0] in ("F", "B", "L", "R"):
                 print("Validated commands successfully")
@@ -58,9 +58,8 @@ class Robot:
                     self.move(item)
                 else:
                     self.turn(item)
-            print(self.displacement())
-
-
-if __name__ == "__main__":
-    robo = Robot(0, 0, "N")
-    robo.main("F1,L1,F3,R1,B4")
+            print(
+                "The total units robot has to take to be back home: {}".format(
+                    self.displacement()
+                )
+            )

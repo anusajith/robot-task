@@ -1,7 +1,7 @@
 # Input file for test.py
 
 input_list:
-  - 'F1,R1,B2,L1,B3'
-  - 'F1,R1,B2,L1,B3'
-  - 'F1,R1,B2,C1,B3'
-  - 'F1,R1,B2,L1,B3'
+  - 'F1,R1,B2,L1,B3' # output:4
+  - 'F1,R1,A2,L1,B3' # invalid input commands
+  - 'F1,R1,B2,C1,B3' # invalid input commands
+  - 'B1,R1,B2,L1,F4' # output:5

@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    stages {
+        stage('Cloning our Git') {
+            steps {
+                git 'https://github.com/anusajith/robot-task.git'
+            }
+        }
+        stage('Checkout to develop'){
+            steps{
+                git branch: 'develop' , url: 'https://github.com/anusajith/robot-task.git'
+            }
+        }
+        stage('Building our image') {
+            steps {
+                script {
+                    dockerImage = docker.build("mynewimage:${env.BUILD_ID}","-f Dockerfile ." )
+                }
+            }
+        }
+        stage('Running the docker image') {
+            steps {
+                script {
+                    dockerImage.run("-it 2" )
+                }
+            }
+        }
+        stage('Testing') {
+            steps {
+                script {
+                    echo "Finished Successfully"
+                }
+            }
+        }
+    }
+}
